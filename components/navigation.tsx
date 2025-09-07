@@ -22,6 +22,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CustomImage from "./CustomImage";
+import { APP_CONFIG } from "@/config";
 
 export const dynamic = "force-dynamic";
 
@@ -168,10 +169,10 @@ export function Navigation() {
           ) : (
             <div className="flex items-center space-x-2">
               <Button variant="outline" size="sm" asChild>
-                <Link href="/login">登录</Link>
+                <Link href={`${APP_CONFIG.basePath}/login`}>登录</Link>
               </Button>
               <Button size="sm" asChild>
-                <Link href="/register">注册</Link>
+                <Link href={`${APP_CONFIG.basePath}/register`}>注册</Link>
               </Button>
             </div>
           )}

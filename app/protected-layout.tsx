@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { getToken } from "@/lib/api";
+import { APP_CONFIG } from "@/config";
 
 interface ProtectedLayoutProps {
   children: ReactNode;
@@ -15,7 +16,7 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
   const pathname = usePathname();
   const { isLoggedIn, isLoading } = useAuth();
 
-  const publicRoutes = ["/login", "/register"];
+  const publicRoutes = [`${APP_CONFIG.basePath}/login`, "/register"];
 
   useEffect(() => {
     const hasValidToken = !!getToken();
@@ -27,7 +28,7 @@ export default function ProtectedLayout({ children }: ProtectedLayoutProps) {
     ) {
       setTimeout(() => {
         if (!isLoggedIn || !getToken()) {
-          router.replace("/login");
+          router.replace(`${APP_CONFIG.basePath}/login`);
         }
       }, 100);
     }

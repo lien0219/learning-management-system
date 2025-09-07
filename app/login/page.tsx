@@ -51,8 +51,6 @@ export default function LoginPage() {
       }
 
       saveToken(tokenToSave);
-      // /learning-management-system
-      // window.location.replace("/");
       window.location.replace(`${APP_CONFIG.basePath}/`);
     } catch (err) {
       setError("登录失败，请检查您的邮箱和密码");

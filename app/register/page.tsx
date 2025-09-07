@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import CustomImage from "@/components/CustomImage";
+import { APP_CONFIG } from "@/config";
 
 // 添加客户端指令
 export const dynamic = "force-dynamic";
@@ -77,7 +78,7 @@ export default function RegisterPage() {
       setSuccess("注册成功！即将跳转到登录页面...");
 
       setTimeout(() => {
-        router.replace("/login");
+        router.replace(`${APP_CONFIG.basePath}/login`);
       }, 2000);
     } catch (err) {
       setError("注册失败，请稍后再试");
@@ -262,7 +263,7 @@ export default function RegisterPage() {
             <div className="mt-6 text-center">
               <span className="text-sm text-muted-foreground">已有账号？</span>
               <Link
-                href="/login"
+                href={`${APP_CONFIG.basePath}/login`}
                 className="text-sm text-blue-600 hover:underline ml-1"
               >
                 去登录

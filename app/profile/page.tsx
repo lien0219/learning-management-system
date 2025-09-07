@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import ProtectedLayout from "../protected-layout";
+import CustomImage from "@/components/CustomImage";
 
 // 添加客户端指令
 export const dynamic = "force-dynamic";
@@ -57,10 +58,9 @@ function ProfileContent() {
       {user && (
         <Card className="w-full max-w-md p-8 rounded-xl shadow-lg bg-white border-0">
           <div className="flex flex-col items-center space-y-6">
-            {/* 头像和基本信息 */}
             <div className="relative">
               <Avatar className="h-32 w-32 border-4 border-blue-50">
-                <img
+                <CustomImage
                   src="/placeholder-user.jpg"
                   alt={user.name}
                   className="h-full w-full object-cover rounded-full"
@@ -80,10 +80,8 @@ function ProfileContent() {
                 : "学生"}
             </Badge>
 
-            {/* 分隔线 */}
             <Separator className="w-full" />
 
-            {/* 用户详情信息 */}
             <div className="w-full space-y-4">
               <div className="grid grid-cols-1 gap-3">
                 <div className="flex items-center justify-between">
@@ -127,7 +125,6 @@ function ProfileContent() {
               </div>
             </div>
 
-            {/* 退出登录按钮 */}
             <Button
               variant="destructive"
               onClick={logout}

@@ -118,7 +118,7 @@ export function Navigation() {
                   className="relative h-8 w-8 rounded-full"
                 >
                   <Avatar className="h-8 w-8">
-                    <img
+                    <CustomImage
                       src="/placeholder-user.jpg"
                       alt={user.name}
                       className="h-full w-full object-cover"

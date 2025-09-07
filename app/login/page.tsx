@@ -10,10 +10,12 @@ import { login, saveToken } from "@/lib/api";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import CustomImage from "@/components/CustomImage";
+import { useBasePath } from "@/hooks/use-basePath";
 
 export const dynamic = "force-dynamic";
 
 export default function LoginPage() {
+  const basePath = useBasePath();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -51,7 +53,8 @@ export default function LoginPage() {
 
       saveToken(tokenToSave);
 
-      window.location.replace("/");
+      // window.location.replace("/");
+      window.location.href = `${basePath}/`;
     } catch (err) {
       setError("登录失败，请检查您的邮箱和密码");
       console.error("登录错误:", err);

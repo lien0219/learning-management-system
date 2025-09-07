@@ -53,7 +53,6 @@ export default function LoginPage() {
 
       saveToken(tokenToSave);
 
-      // window.location.replace("/");
       window.location.href = `${basePath}/`;
     } catch (err) {
       setError("登录失败，请检查您的邮箱和密码");

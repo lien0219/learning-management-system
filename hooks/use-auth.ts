@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getProfile, getToken, clearAuth } from "@/lib/api";
 import { UserData, UserProfile } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { useBasePath } from "./use-basePath";
 
 interface AuthState {
   user: UserData | null;
@@ -18,6 +19,8 @@ export function useAuth() {
     error: null,
   });
   const router = useRouter();
+  const basePath = useBasePath();
+
   const checkAuth = async () => {
     setAuthState((prev) => ({ ...prev, isLoading: true, error: null }));
 
@@ -72,7 +75,7 @@ export function useAuth() {
       isLoading: false,
       error: null,
     });
-    window.location.href = "/login";
+    window.location.href = `${basePath}/login`;
   };
   const forceCheckAuth = () => {
     const token = getToken();

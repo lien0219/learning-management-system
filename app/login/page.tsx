@@ -10,6 +10,7 @@ import { login, saveToken } from "@/lib/api";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 import CustomImage from "@/components/CustomImage";
+import { APP_CONFIG } from "@/config";
 
 export const dynamic = "force-dynamic";
 
@@ -50,8 +51,9 @@ export default function LoginPage() {
       }
 
       saveToken(tokenToSave);
-
-      window.location.replace("/");
+      // /learning-management-system
+      // window.location.replace("/");
+      window.location.replace(`${APP_CONFIG.basePath}/`);
     } catch (err) {
       setError("登录失败，请检查您的邮箱和密码");
       console.error("登录错误:", err);

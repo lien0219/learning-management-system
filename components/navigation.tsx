@@ -21,6 +21,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import CustomImage from "./CustomImage";
 
 export const dynamic = "force-dynamic";
 
@@ -72,7 +73,14 @@ export function Navigation() {
         {/* Logo */}
         <Link href="/" className="flex items-center justify-center">
           <div className="flex h-8 w-8 items-center justify-center">
-            <Image
+            {/* <Image
+              src="/home-logo.png"
+              alt="logo"
+              width={100}
+              height={100}
+              className="rounded-lg shadow-md object-cover"
+            /> */}
+            <CustomImage
               src="/home-logo.png"
               alt="logo"
               width={100}

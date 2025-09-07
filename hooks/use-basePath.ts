@@ -1,10 +1,8 @@
+import { usePathname } from "next/navigation";
 import { APP_CONFIG } from "@/config";
-import { useRouter } from "next/router";
 
 export const useBasePath = () => {
-  const router = useRouter();
-
-  return router.basePath || APP_CONFIG.basePath;
+  return APP_CONFIG.basePath;
 };
 
 export const getBasePath = () => {

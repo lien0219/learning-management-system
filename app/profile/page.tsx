@@ -63,6 +63,8 @@ function ProfileContent() {
                 <CustomImage
                   src="/placeholder-user.jpg"
                   alt={user.name}
+                  width={128}
+                  height={128}
                   className="h-full w-full object-cover rounded-full"
                 />
               </Avatar>

@@ -10,8 +10,8 @@ const CustomImage = ({
 }: {
   src: string;
   alt: string;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
   className?: string;
   [key: string]: any;
 }) => {

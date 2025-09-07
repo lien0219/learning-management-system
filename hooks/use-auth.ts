@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getProfile, getToken, clearAuth } from "@/lib/api";
 import { UserData, UserProfile } from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { APP_CONFIG } from "@/config";
 
 interface AuthState {
   user: UserData | null;
@@ -43,7 +42,7 @@ export function useAuth() {
             isLoading: false,
             error: "用户认证失败，请重新登录",
           });
-          router.replace(`${APP_CONFIG.basePath}/login`);
+          router.replace("/login");
         }
       } else {
         setAuthState({
@@ -73,7 +72,7 @@ export function useAuth() {
       isLoading: false,
       error: null,
     });
-    window.location.href = `${APP_CONFIG.basePath}/login`;
+    window.location.href = "/login";
   };
   const forceCheckAuth = () => {
     const token = getToken();
@@ -85,7 +84,7 @@ export function useAuth() {
         isLoggedIn: false,
         user: null,
       }));
-      router.replace(`${APP_CONFIG.basePath}/login`);
+      router.replace("/login");
     }
   };
   useEffect(() => {

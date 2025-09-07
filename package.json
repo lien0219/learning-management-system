@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:production": "NEXT_PUBLIC_BASE_PATH=/learning-management-system next build",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"

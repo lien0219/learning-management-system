@@ -35,10 +35,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build with Next.js
-        run: pnpm run build
-        env:
-          NODE_ENV: production
+      - name: Build with Next.js for Production
+        run: pnpm run build:production
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -4,8 +4,16 @@
     <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      sessionStorage.redirect = location.pathname + location.search;
-      location.replace("/learning-management-system/");
+      const basePath = "/learning-management-system";
+
+      const pathSegments = window.location.pathname.split("/");
+      const possibleRepoName = pathSegments[1];
+
+      if (!window.location.pathname.startsWith(basePath) && possibleRepoName) {
+        window.location.replace("/" + possibleRepoName + "/");
+      } else {
+        window.location.replace(basePath + "/");
+      }
     </script>
   </head>
   <body>

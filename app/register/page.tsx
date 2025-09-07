@@ -17,6 +17,7 @@ import { register } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import CustomImage from "@/components/CustomImage";
 
 // 添加客户端指令
 export const dynamic = "force-dynamic";
@@ -103,7 +104,7 @@ export default function RegisterPage() {
           </div>
 
           <div className="mt-12">
-            <Image
+            <CustomImage
               src="/register.png"
               alt="SDL学习模块注册插画"
               width={400}

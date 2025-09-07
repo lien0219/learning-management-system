@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { login, saveToken } from "@/lib/api";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import CustomImage from "@/components/CustomImage";
 
 export const dynamic = "force-dynamic";
 
@@ -76,7 +77,7 @@ export default function LoginPage() {
           </div>
 
           <div className="mt-12">
-            <Image
+            <CustomImage
               src="/login.png"
               alt="SDL学习模块插画"
               width={400}

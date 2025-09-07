@@ -52,7 +52,7 @@ export function Navigation() {
         <div className="container flex h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center justify-center">
             <div className="flex h-8 w-8 items-center justify-center">
-              <Image
+              <CustomImage
                 src="/home-logo.png"
                 alt="logo"
                 width={100}
@@ -70,16 +70,8 @@ export function Navigation() {
   return (
     <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between px-4">
-        {/* Logo */}
         <Link href="/" className="flex items-center justify-center">
           <div className="flex h-8 w-8 items-center justify-center">
-            {/* <Image
-              src="/home-logo.png"
-              alt="logo"
-              width={100}
-              height={100}
-              className="rounded-lg shadow-md object-cover"
-            /> */}
             <CustomImage
               src="/home-logo.png"
               alt="logo"
@@ -90,7 +82,6 @@ export function Navigation() {
           </div>
         </Link>
 
-        {/* Navigation Items */}
         <nav className="hidden md:flex items-center space-x-6">
           {navigationItems.map((item) => (
             <Link
@@ -108,14 +99,12 @@ export function Navigation() {
           ))}
         </nav>
 
-        {/* User Profile / Auth */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
             <ThemeSwitcher />
             <LanguageSwitcher />
           </div>
 
-          {/* 根据认证状态显示不同内容 */}
           {isLoading ? (
             <div className="flex items-center space-x-2">
               <Skeleton className="h-8 w-8 rounded-full" />

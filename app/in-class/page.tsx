@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle2, AlertCircle, Users, Send } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function InClassPage() {
   const { t } = useLanguage();
+  const { theme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -19,19 +21,16 @@ export default function InClassPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Task Chain */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Inquiry-based Task Chain */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("inquiryBasedTaskChain")}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Task 1 */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                         1
                       </div>
                       <h3 className="font-medium">
@@ -41,15 +40,14 @@ export default function InClassPage() {
                     <p className="text-sm text-muted-foreground">
                       {t("variableDeclarationDescription")}
                     </p>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                    <Button className="w-full bg-primary hover:bg-primary/90">
                       {t("taskCompleted")}
                     </Button>
                   </div>
 
-                  {/* Task 2 */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                         2
                       </div>
                       <h3 className="font-medium">
@@ -64,10 +62,9 @@ export default function InClassPage() {
                     </Button>
                   </div>
 
-                  {/* Task 3 */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                         3
                       </div>
                       <h3 className="font-medium">
@@ -82,10 +79,9 @@ export default function InClassPage() {
                     </Button>
                   </div>
 
-                  {/* Task 4 */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                         4
                       </div>
                       <h3 className="font-medium">
@@ -100,10 +96,9 @@ export default function InClassPage() {
                     </Button>
                   </div>
 
-                  {/* Task 5 */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                         5
                       </div>
                       <h3 className="font-medium">
@@ -118,10 +113,9 @@ export default function InClassPage() {
                     </Button>
                   </div>
 
-                  {/* Task 6 */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                         6
                       </div>
                       <h3 className="font-medium">
@@ -139,17 +133,15 @@ export default function InClassPage() {
               </CardContent>
             </Card>
 
-            {/* Online Code Editor */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-blue-600 rounded"></div>
+                  <div className="w-4 h-4 bg-primary rounded"></div>
                   {t("onlineCodeEditor")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Code Input */}
                   <div>
                     <div className="bg-gray-900 text-green-400 p-4 rounded-lg font-mono text-sm min-h-64">
                       <div className="text-gray-500">
@@ -174,9 +166,12 @@ export default function InClassPage() {
                     </div>
                   </div>
 
-                  {/* Output */}
                   <div>
-                    <div className="bg-gray-100 p-4 rounded-lg min-h-64">
+                    <div
+                      className={`p-4 rounded-lg min-h-64 ${
+                        theme === "dark" ? "bg-gray-800" : "bg-gray-100"
+                      }`}
+                    >
                       <div className="text-sm text-muted-foreground mb-2">
                         {t("programOutputHere")}
                       </div>
@@ -188,7 +183,7 @@ export default function InClassPage() {
                 </div>
 
                 <div className="flex gap-4 mt-4">
-                  <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Button className="bg-primary hover:bg-primary/90">
                     <div className="w-4 h-4 mr-2">▶</div>
                     {t("runCode")}
                   </Button>
@@ -201,15 +196,17 @@ export default function InClassPage() {
             </Card>
           </div>
 
-          {/* Right Column */}
           <div className="space-y-6">
-            {/* Real-time Feedback */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("realTimeFeedback")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-start gap-3 p-3 bg-red-50 rounded-lg">
+                <div
+                  className={`flex items-start gap-3 p-3 rounded-lg ${
+                    theme === "dark" ? "bg-red-900/20" : "bg-red-50"
+                  }`}
+                >
                   <AlertCircle className="w-4 h-4 text-red-600 mt-0.5" />
                   <div>
                     <div className="text-sm font-medium text-red-800">
@@ -221,7 +218,11 @@ export default function InClassPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                <div
+                  className={`flex items-start gap-3 p-3 rounded-lg ${
+                    theme === "dark" ? "bg-green-900/20" : "bg-green-50"
+                  }`}
+                >
                   <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5" />
                   <div>
                     <div className="text-sm font-medium text-green-800">
@@ -233,7 +234,11 @@ export default function InClassPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg">
+                <div
+                  className={`flex items-start gap-3 p-3 rounded-lg ${
+                    theme === "dark" ? "bg-yellow-900/20" : "bg-yellow-50"
+                  }`}
+                >
                   <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5" />
                   <div>
                     <div className="text-sm font-medium text-yellow-800">
@@ -245,7 +250,11 @@ export default function InClassPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+                <div
+                  className={`flex items-start gap-3 p-3 rounded-lg ${
+                    theme === "dark" ? "bg-green-900/20" : "bg-green-50"
+                  }`}
+                >
                   <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5" />
                   <div>
                     <div className="text-sm font-medium text-green-800">
@@ -257,7 +266,6 @@ export default function InClassPage() {
               </CardContent>
             </Card>
 
-            {/* Collaboration Hub */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -268,8 +276,16 @@ export default function InClassPage() {
               <CardContent className="space-y-4">
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      <span className="text-sm font-medium text-blue-600">
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                        theme === "dark" ? "bg-blue-900/30" : "bg-blue-100"
+                      }`}
+                    >
+                      <span
+                        className={`text-sm font-medium ${
+                          theme === "dark" ? "text-blue-400" : "text-blue-600"
+                        }`}
+                      >
                         PA
                       </span>
                     </div>
@@ -281,9 +297,13 @@ export default function InClassPage() {
                     </div>
                   </div>
 
-                  <div className="bg-blue-50 p-3 rounded-lg">
+                  <div
+                    className={`p-3 rounded-lg ${
+                      theme === "dark" ? "bg-blue-900/20" : "bg-blue-50"
+                    }`}
+                  >
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                         <span className="text-sm font-medium text-white">
                           {t("you")}
                         </span>
@@ -295,8 +315,16 @@ export default function InClassPage() {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-sm font-medium text-green-600">
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                        theme === "dark" ? "bg-green-900/30" : "bg-green-100"
+                      }`}
+                    >
+                      <span
+                        className={`text-sm font-medium ${
+                          theme === "dark" ? "text-green-400" : "text-green-600"
+                        }`}
+                      >
                         AM
                       </span>
                     </div>
@@ -314,7 +342,7 @@ export default function InClassPage() {
                     placeholder={t("typeYourMessage")}
                     className="flex-1"
                   />
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                  <Button size="sm" className="bg-primary hover:bg-primary/90">
                     <Send className="w-4 h-4" />
                   </Button>
                 </div>
@@ -324,7 +352,6 @@ export default function InClassPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t bg-background mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">

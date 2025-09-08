@@ -10,7 +10,7 @@ import { useLanguage } from "@/hooks/use-language";
 export default function PreClassPage() {
   const { t } = useLanguage();
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -20,9 +20,7 @@ export default function PreClassPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column */}
           <div className="space-y-6">
-            {/* Pre-test Learning Diagnosis */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("preTestLearningDiagnosis")}</CardTitle>
@@ -52,9 +50,12 @@ export default function PreClassPage() {
                           type="radio"
                           id="beginner"
                           name="experience"
-                          className="w-4 h-4"
+                          className="w-4 h-4 text-primary"
                         />
-                        <label htmlFor="beginner" className="text-sm">
+                        <label
+                          htmlFor="beginner"
+                          className="text-sm text-foreground"
+                        >
                           {t("beginner")}
                         </label>
                       </div>
@@ -63,9 +64,12 @@ export default function PreClassPage() {
                           type="radio"
                           id="intermediate"
                           name="experience"
-                          className="w-4 h-4"
+                          className="w-4 h-4 text-primary"
                         />
-                        <label htmlFor="intermediate" className="text-sm">
+                        <label
+                          htmlFor="intermediate"
+                          className="text-sm text-foreground"
+                        >
                           {t("intermediate")}
                         </label>
                       </div>
@@ -74,22 +78,24 @@ export default function PreClassPage() {
                           type="radio"
                           id="advanced"
                           name="experience"
-                          className="w-4 h-4"
+                          className="w-4 h-4 text-primary"
                         />
-                        <label htmlFor="advanced" className="text-sm">
+                        <label
+                          htmlFor="advanced"
+                          className="text-sm text-foreground"
+                        >
                           {t("advanced")}
                         </label>
                       </div>
                     </div>
                   </div>
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button className="w-full bg-primary hover:bg-primary/90">
                   {t("startQuiz")}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Your Self-assessment Learning Path */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("yourSelfAssessmentLearningPath")}</CardTitle>
@@ -100,29 +106,33 @@ export default function PreClassPage() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                       1
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium">{t("foundations")}</h4>
+                      <h4 className="font-medium text-foreground">
+                        {t("foundations")}
+                      </h4>
                       <p className="text-sm text-muted-foreground">
                         {t("variablesAndDataTypes")}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
                       2
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium">{t("controlFlow")}</h4>
+                      <h4 className="font-medium text-foreground">
+                        {t("controlFlow")}
+                      </h4>
                       <p className="text-sm text-muted-foreground">
                         {t("loopsAndConditionals")}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 bg-muted text-muted-foreground rounded-full flex items-center justify-center text-sm font-bold">
                       3
                     </div>
                     <div className="flex-1">
@@ -135,7 +145,7 @@ export default function PreClassPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 bg-muted text-muted-foreground rounded-full flex items-center justify-center text-sm font-bold">
                       4
                     </div>
                     <div className="flex-1">
@@ -148,7 +158,7 @@ export default function PreClassPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 bg-muted text-muted-foreground rounded-full flex items-center justify-center text-sm font-bold">
                       5
                     </div>
                     <div className="flex-1">
@@ -161,7 +171,7 @@ export default function PreClassPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-bold">
+                    <div className="w-8 h-8 bg-muted text-muted-foreground rounded-full flex items-center justify-center text-sm font-bold">
                       6
                     </div>
                     <div className="flex-1">
@@ -178,9 +188,7 @@ export default function PreClassPage() {
             </Card>
           </div>
 
-          {/* Right Column */}
           <div className="space-y-6">
-            {/* Set Your Learning Goals */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("setYourLearningGoals")}</CardTitle>
@@ -205,13 +213,12 @@ export default function PreClassPage() {
                   </Label>
                   <Input id="timeline" type="date" className="mt-2" />
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button className="w-full bg-primary hover:bg-primary/90">
                   {t("saveGoals")}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Resource Packs */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("resourcePacks")}</CardTitle>
@@ -221,13 +228,13 @@ export default function PreClassPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-4">
-                  <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-4 rounded-lg">
+                  <div className="bg-primary/5 p-4 rounded-lg border border-primary/10">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <Video className="w-5 h-5 text-blue-600" />
+                      <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
+                        <Video className="w-5 h-5 text-primary" />
                       </div>
                       <div>
-                        <h4 className="font-medium">
+                        <h4 className="font-medium text-foreground">
                           {t("variablesAndDataTypes")}
                         </h4>
                         <p className="text-sm text-muted-foreground">
@@ -240,19 +247,19 @@ export default function PreClassPage() {
                     </p>
                     <Button
                       variant="link"
-                      className="p-0 h-auto text-blue-600 text-sm"
+                      className="p-0 h-auto text-primary text-sm"
                     >
                       {t("viewResource")}
                     </Button>
                   </div>
 
-                  <div className="bg-gradient-to-br from-green-100 to-green-200 p-4 rounded-lg">
+                  <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-100 dark:border-green-800/30">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <BookOpen className="w-5 h-5 text-green-600" />
+                      <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
+                        <BookOpen className="w-5 h-5 text-green-600 dark:text-green-400" />
                       </div>
                       <div>
-                        <h4 className="font-medium">
+                        <h4 className="font-medium text-foreground">
                           {t("controlFlowAndLogic")}
                         </h4>
                         <p className="text-sm text-muted-foreground">
@@ -265,19 +272,19 @@ export default function PreClassPage() {
                     </p>
                     <Button
                       variant="link"
-                      className="p-0 h-auto text-green-600 text-sm"
+                      className="p-0 h-auto text-green-600 dark:text-green-400 text-sm"
                     >
                       {t("viewResource")}
                     </Button>
                   </div>
 
-                  <div className="bg-gradient-to-br from-purple-100 to-purple-200 p-4 rounded-lg">
+                  <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800/30">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <Code className="w-5 h-5 text-purple-600" />
+                      <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
+                        <Code className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                       </div>
                       <div>
-                        <h4 className="font-medium">
+                        <h4 className="font-medium text-foreground">
                           {t("debuggingStrategies")}
                         </h4>
                         <p className="text-sm text-muted-foreground">
@@ -290,19 +297,19 @@ export default function PreClassPage() {
                     </p>
                     <Button
                       variant="link"
-                      className="p-0 h-auto text-purple-600 text-sm"
+                      className="p-0 h-auto text-purple-600 dark:text-purple-400 text-sm"
                     >
                       {t("viewResource")}
                     </Button>
                   </div>
 
-                  <div className="bg-gradient-to-br from-orange-100 to-orange-200 p-4 rounded-lg">
+                  <div className="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-100 dark:border-orange-800/30">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <FileText className="w-5 h-5 text-orange-600" />
+                      <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
+                        <FileText className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                       </div>
                       <div>
-                        <h4 className="font-medium">
+                        <h4 className="font-medium text-foreground">
                           {t("functionsAndScope")}
                         </h4>
                         <p className="text-sm text-muted-foreground">
@@ -315,19 +322,19 @@ export default function PreClassPage() {
                     </p>
                     <Button
                       variant="link"
-                      className="p-0 h-auto text-orange-600 text-sm"
+                      className="p-0 h-auto text-orange-600 dark:text-orange-400 text-sm"
                     >
                       {t("viewResource")}
                     </Button>
                   </div>
 
-                  <div className="bg-gradient-to-br from-pink-100 to-pink-200 p-4 rounded-lg">
+                  <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg border border-pink-100 dark:border-pink-800/30">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
-                        <Target className="w-5 h-5 text-pink-600" />
+                      <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
+                        <Target className="w-5 h-5 text-pink-600 dark:text-pink-400" />
                       </div>
                       <div>
-                        <h4 className="font-medium">
+                        <h4 className="font-medium text-foreground">
                           {t("arraysAndStringsInC")}
                         </h4>
                         <p className="text-sm text-muted-foreground">
@@ -340,7 +347,7 @@ export default function PreClassPage() {
                     </p>
                     <Button
                       variant="link"
-                      className="p-0 h-auto text-pink-600 text-sm"
+                      className="p-0 h-auto text-pink-600 dark:text-pink-400 text-sm"
                     >
                       {t("viewResource")}
                     </Button>
@@ -352,7 +359,6 @@ export default function PreClassPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t bg-background mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">

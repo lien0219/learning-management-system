@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
+import { useTheme } from "@/hooks/use-theme";
 import ProtectedLayout from "../protected-layout";
 import CustomImage from "@/components/CustomImage";
 
@@ -16,11 +17,13 @@ export const dynamic = "force-dynamic";
 
 function ProfileContent() {
   const { user, isLoading, logout } = useAuth();
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center min-h-[70vh] justify-center">
-        <Card className="w-full max-w-md p-8 rounded-xl shadow-lg">
+      <div className="flex flex-col items-center min-h-[70vh] justify-center bg-background">
+        <Card className="w-full max-w-md p-8 rounded-xl shadow-lg bg-card">
           <div className="flex flex-col items-center space-y-6">
             <Skeleton className="h-24 w-24 rounded-full" />
             <Skeleton className="h-8 w-1/2" />
@@ -54,12 +57,16 @@ function ProfileContent() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-[70vh] justify-center p-4">
+    <div className="flex flex-col items-center min-h-[70vh] justify-center p-4 bg-background">
       {user && (
-        <Card className="w-full max-w-md p-8 rounded-xl shadow-lg bg-white border-0">
+        <Card className="w-full max-w-md p-8 rounded-xl shadow-lg bg-card border-0">
           <div className="flex flex-col items-center space-y-6">
             <div className="relative">
-              <Avatar className="h-32 w-32 border-4 border-blue-50">
+              <Avatar
+                className={`h-32 w-32 border-4 ${
+                  isDark ? "border-primary/20" : "border-blue-50"
+                }`}
+              >
                 <CustomImage
                   src="/placeholder-user.jpg"
                   alt={user.name}
@@ -68,13 +75,23 @@ function ProfileContent() {
                   className="h-full w-full object-cover rounded-full"
                 />
               </Avatar>
-              <div className="absolute -bottom-2 -right-2 bg-blue-50 p-1.5 rounded-full">
-                <div className="h-3 w-3 bg-blue-500 rounded-full" />
+              <div
+                className={`absolute -bottom-2 -right-2 ${
+                  isDark ? "bg-primary/20" : "bg-blue-50"
+                } p-1.5 rounded-full`}
+              >
+                <div className="h-3 w-3 bg-primary rounded-full" />
               </div>
             </div>
 
-            <h2 className="text-2xl font-bold text-gray-900">{user.name}</h2>
-            <Badge className="bg-blue-50 text-blue-600 hover:bg-blue-100 text-sm px-3 py-1 rounded-full">
+            <h2 className="text-2xl font-bold text-foreground">{user.name}</h2>
+            <Badge
+              className={`${
+                isDark
+                  ? "bg-primary/20 text-primary"
+                  : "bg-blue-50 text-blue-600 hover:bg-blue-100"
+              } text-sm px-3 py-1 rounded-full`}
+            >
               {user.role === "admin"
                 ? "系统管理员"
                 : user.role === "teacher"
@@ -87,40 +104,40 @@ function ProfileContent() {
             <div className="w-full space-y-4">
               <div className="grid grid-cols-1 gap-3">
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-medium text-gray-500">
+                  <Label className="text-sm font-medium text-muted-foreground">
                     用户 ID
                   </Label>
-                  <span className="text-sm text-gray-900">{user.id}</span>
+                  <span className="text-sm text-foreground">{user.id}</span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-medium text-gray-500">
+                  <Label className="text-sm font-medium text-muted-foreground">
                     邮箱地址
                   </Label>
-                  <span className="text-sm text-gray-900">{user.email}</span>
+                  <span className="text-sm text-foreground">{user.email}</span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-medium text-gray-500">
+                  <Label className="text-sm font-medium text-muted-foreground">
                     系统语言
                   </Label>
-                  <span className="text-sm text-gray-900">
+                  <span className="text-sm text-foreground">
                     {user.language === "en" ? "英语" : "中文"}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-medium text-gray-500">
+                  <Label className="text-sm font-medium text-muted-foreground">
                     经验值
                   </Label>
-                  <span className="text-sm text-gray-900">{user.xp}</span>
+                  <span className="text-sm text-foreground">{user.xp}</span>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <Label className="text-sm font-medium text-gray-500">
+                  <Label className="text-sm font-medium text-muted-foreground">
                     创建时间
                   </Label>
-                  <span className="text-sm text-gray-900">
+                  <span className="text-sm text-foreground">
                     {new Date(user.createdAt).toLocaleString()}
                   </span>
                 </div>

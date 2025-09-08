@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Target, Lightbulb } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function PostClassPage() {
   const { t } = useLanguage();
+  const { theme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -19,9 +21,7 @@ export default function PostClassPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left Column */}
           <div className="space-y-6">
-            {/* Learning Journal */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -33,16 +33,15 @@ export default function PostClassPage() {
                 </p>
               </CardHeader>
               <CardContent>
-                <div className="bg-gray-100 p-4 rounded-lg mb-4">
+                <div className="bg-secondary p-4 rounded-lg mb-4">
                   <p className="text-sm">{t("learningJournalExampleText")}</p>
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button className="w-full bg-primary hover:bg-primary/90">
                   {t("saveEntry")}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Transfer Tasks: Apply Your Skills */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("transferTasks")}</CardTitle>
@@ -102,9 +101,7 @@ export default function PostClassPage() {
             </Card>
           </div>
 
-          {/* Right Column */}
           <div className="space-y-6">
-            {/* Quiz: Pointers & Memory */}
             <Card>
               <CardHeader>
                 <CardTitle>{t("pointersMemoryQuiz")}</CardTitle>
@@ -258,13 +255,12 @@ export default function PostClassPage() {
                   </div>
                 </div>
 
-                <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button className="w-full bg-primary hover:bg-primary/90">
                   {t("submitQuiz")}
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Effective Reflection Strategies */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -309,9 +305,13 @@ export default function PostClassPage() {
                   </div>
                 </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <div className="w-24 h-24 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Target className="w-8 h-8 text-blue-600" />
+                <div className="bg-secondary p-4 rounded-lg">
+                  <div
+                    className={`w-24 h-24 mx-auto mb-4 ${
+                      theme === "dark" ? "bg-primary/20" : "bg-primary/10"
+                    } rounded-full flex items-center justify-center`}
+                  >
+                    <Target className="w-8 h-8 text-primary" />
                   </div>
                 </div>
               </CardContent>
@@ -320,7 +320,6 @@ export default function PostClassPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t bg-background mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
@@ -329,14 +328,6 @@ export default function PostClassPage() {
               <span>{t("company")}</span>
               <span>{t("support")}</span>
             </div>
-            {/* <div className="flex items-center space-x-4">
-              <span className="text-sm text-muted-foreground">
-                {t("madeWith")}
-              </span>
-              <div className="flex items-center space-x-1">
-                <span className="text-sm font-medium text-blue-600">Voly</span>
-              </div>
-            </div> */}
           </div>
         </div>
       </footer>

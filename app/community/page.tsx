@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,17 +14,19 @@ import {
   Video,
   BookOpen,
 } from "lucide-react";
+import { useTheme } from "@/hooks/use-theme";
 
 export default function CommunityPage() {
+  const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Community</h1>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Discussion Forum */}
           <Card>
             <CardHeader>
               <CardTitle>Discussion Forum</CardTitle>
@@ -41,8 +45,14 @@ export default function CommunityPage() {
 
                 <TabsContent value="popular" className="space-y-4 mt-4">
                   <div className="space-y-3">
-                    <div className="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer">
-                      <h4 className="font-medium text-sm mb-1">
+                    <div
+                      className={`border rounded-lg p-3 cursor-pointer ${
+                        theme === "dark"
+                          ? "hover:bg-secondary/30"
+                          : "hover:bg-secondary"
+                      }`}
+                    >
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Understanding Pointers in C
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -70,8 +80,14 @@ export default function CommunityPage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer">
-                      <h4 className="font-medium text-sm mb-1">
+                    <div
+                      className={`border rounded-lg p-3 cursor-pointer ${
+                        theme === "dark"
+                          ? "hover:bg-secondary/30"
+                          : "hover:bg-secondary"
+                      }`}
+                    >
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Best Practices for Error Handling
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -95,8 +111,14 @@ export default function CommunityPage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer">
-                      <h4 className="font-medium text-sm mb-1">
+                    <div
+                      className={`border rounded-lg p-3 cursor-pointer ${
+                        theme === "dark"
+                          ? "hover:bg-secondary/30"
+                          : "hover:bg-secondary"
+                      }`}
+                    >
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Debugging with GDB tips
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -120,8 +142,14 @@ export default function CommunityPage() {
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-3 hover:bg-gray-50 cursor-pointer">
-                      <h4 className="font-medium text-sm mb-1">
+                    <div
+                      className={`border rounded-lg p-3 cursor-pointer ${
+                        theme === "dark"
+                          ? "hover:bg-secondary/30"
+                          : "hover:bg-secondary"
+                      }`}
+                    >
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Optimizing C code for speed
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -160,21 +188,26 @@ export default function CommunityPage() {
                 </TabsContent>
               </Tabs>
 
-              <Button className="w-full mt-4 bg-blue-600 hover:bg-blue-700">
+              <Button className="w-full mt-4 bg-primary hover:bg-primary/90">
                 Start a New Discussion
               </Button>
             </CardContent>
           </Card>
 
-          {/* Middle Column - Q&A Section */}
           <Card>
             <CardHeader>
               <CardTitle>Q&A Section</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium text-sm mb-2">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
+                  <h4 className="font-medium text-sm mb-2 text-foreground">
                     How do I correctly free dynamically allocated memory?
                   </h4>
                   <p className="text-xs text-muted-foreground mb-3">
@@ -197,8 +230,14 @@ export default function CommunityPage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium text-sm mb-2">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
+                  <h4 className="font-medium text-sm mb-2 text-foreground">
                     What's the difference between struct and union?
                   </h4>
                   <p className="text-xs text-muted-foreground mb-3">
@@ -221,8 +260,14 @@ export default function CommunityPage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
-                  <h4 className="font-medium text-sm mb-2">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
+                  <h4 className="font-medium text-sm mb-2 text-foreground">
                     Explain the concept of 'undefined behavior' in C
                   </h4>
                   <p className="text-xs text-muted-foreground mb-3">
@@ -247,26 +292,39 @@ export default function CommunityPage() {
                 </div>
               </div>
 
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button className="w-full bg-primary hover:bg-primary/90">
                 Ask a Question
               </Button>
             </CardContent>
           </Card>
 
-          {/* Right Column - Resource Sharing */}
           <Card>
             <CardHeader>
               <CardTitle>Resource Sharing</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
-                <div className="border rounded-lg p-4">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <FileText className="w-4 h-4 text-blue-600" />
+                    <div
+                      className={`w-8 h-8 ${
+                        theme === "dark" ? "bg-primary/20" : "bg-blue-100"
+                      } rounded-lg flex items-center justify-center`}
+                    >
+                      <FileText
+                        className={`w-4 h-4 ${
+                          theme === "dark" ? "text-primary" : "text-blue-600"
+                        }`}
+                      />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-sm mb-1">
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Complete Guide to C Pointers (PDF)
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -286,13 +344,27 @@ export default function CommunityPage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                      <Video className="w-4 h-4 text-green-600" />
+                    <div
+                      className={`w-8 h-8 ${
+                        theme === "dark" ? "bg-primary/20" : "bg-green-100"
+                      } rounded-lg flex items-center justify-center`}
+                    >
+                      <Video
+                        className={`w-4 h-4 ${
+                          theme === "dark" ? "text-primary" : "text-green-600"
+                        }`}
+                      />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-sm mb-1">
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Data Structures in C: Linked Lists (Video)
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -312,13 +384,27 @@ export default function CommunityPage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <BookOpen className="w-4 h-4 text-purple-600" />
+                    <div
+                      className={`w-8 h-8 ${
+                        theme === "dark" ? "bg-primary/20" : "bg-purple-100"
+                      } rounded-lg flex items-center justify-center`}
+                    >
+                      <BookOpen
+                        className={`w-4 h-4 ${
+                          theme === "dark" ? "text-primary" : "text-purple-600"
+                        }`}
+                      />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-sm mb-1">
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         Top 10 C Programming Interview Questions (Article)
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -338,13 +424,27 @@ export default function CommunityPage() {
                   </div>
                 </div>
 
-                <div className="border rounded-lg p-4">
+                <div
+                  className={`border rounded-lg p-4 ${
+                    theme === "dark"
+                      ? "hover:bg-secondary/30"
+                      : "hover:bg-secondary"
+                  } cursor-pointer`}
+                >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                      <FileText className="w-4 h-4 text-orange-600" />
+                    <div
+                      className={`w-8 h-8 ${
+                        theme === "dark" ? "bg-primary/20" : "bg-orange-100"
+                      } rounded-lg flex items-center justify-center`}
+                    >
+                      <FileText
+                        className={`w-4 h-4 ${
+                          theme === "dark" ? "text-primary" : "text-orange-600"
+                        }`}
+                      />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-medium text-sm mb-1">
+                      <h4 className="font-medium text-sm mb-1 text-foreground">
                         File I/O in C: A Practical Guide
                       </h4>
                       <p className="text-xs text-muted-foreground mb-2">
@@ -365,7 +465,7 @@ export default function CommunityPage() {
                 </div>
               </div>
 
-              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button className="w-full bg-primary hover:bg-primary/90">
                 Share a Resource
               </Button>
             </CardContent>
@@ -373,7 +473,6 @@ export default function CommunityPage() {
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t bg-background mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">

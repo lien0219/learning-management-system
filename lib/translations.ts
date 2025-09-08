@@ -11,7 +11,7 @@ export const translations = {
     userProfile: "User Profile",
 
     // Dashboard
-    welcomeBack: "Welcome back, Alex Johnson!",
+    welcomeBack: "Welcome back,",
     learningJourney:
       "Your learning journey continues. Let's make today productive.",
     startTodaysLesson: "Start Today's Lesson",
@@ -281,7 +281,7 @@ export const translations = {
     userProfile: "用户资料",
 
     // Dashboard
-    welcomeBack: "欢迎回来，Alex Johnson！",
+    welcomeBack: "欢迎回来，",
     learningJourney: "您的学习之旅在继续。让我们今天更有成效。",
     startTodaysLesson: "开始今天的课程",
     reviewYourGoals: "查看您的目标",

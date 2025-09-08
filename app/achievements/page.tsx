@@ -15,9 +15,9 @@ import {
   Code,
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
+import { useTheme } from "@/hooks/use-theme";
 import type { TranslationKey } from "@/lib/translations";
 
-// 定义badge类型，确保name属性为TranslationKey类型
 type BadgeType = {
   name: TranslationKey;
   icon: React.ElementType;
@@ -141,9 +141,10 @@ const learningGoals = [
 
 export default function AchievementsPage() {
   const { t } = useLanguage();
+  const { theme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground mb-2">
           {t("achievementsPageTitle")}
@@ -151,9 +152,7 @@ export default function AchievementsPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Left Column */}
         <div className="space-y-6">
-          {/* Total Points & Level */}
           <Card>
             <CardHeader>
               <CardTitle>{t("totalPointsLevel")}</CardTitle>
@@ -165,7 +164,7 @@ export default function AchievementsPage() {
                     1430 XP
                   </div>
                   <div className="flex items-center gap-2 mt-2">
-                    <Badge className="bg-blue-600 text-white">
+                    <Badge className="bg-primary text-primary-foreground">
                       {t("level")} 3
                     </Badge>
                   </div>
@@ -184,7 +183,6 @@ export default function AchievementsPage() {
             </CardContent>
           </Card>
 
-          {/* Challenge Task Leaderboard */}
           <Card>
             <CardHeader>
               <CardTitle>{t("challengeTaskLeaderboard")}</CardTitle>
@@ -204,7 +202,7 @@ export default function AchievementsPage() {
                   >
                     <div className="flex items-center gap-2">
                       {entry.rank <= 3 && (
-                        <Trophy className="w-4 h-4 text-yellow-500" />
+                        <Trophy className="w-4 h-4 text-primary" />
                       )}
                       <span className="font-medium">{entry.rank}</span>
                     </div>
@@ -220,9 +218,7 @@ export default function AchievementsPage() {
           </Card>
         </div>
 
-        {/* Right Column */}
         <div className="space-y-6">
-          {/* Your Badge Collection */}
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -259,11 +255,10 @@ export default function AchievementsPage() {
             </CardContent>
           </Card>
 
-          {/* My Learning Goals */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Target className="w-5 h-5" />
+                <Target className="w-5 h-5 text-primary" />
                 {t("myLearningGoals")}
               </CardTitle>
             </CardHeader>
@@ -276,10 +271,16 @@ export default function AchievementsPage() {
                         <Award className="w-4 h-4 text-green-600" />
                       )}
                       {goal.status === "in-progress" && (
-                        <Target className="w-4 h-4 text-blue-600" />
+                        <Target className="w-4 h-4 text-primary" />
                       )}
                       {goal.status === "not-started" && (
-                        <div className="w-4 h-4 rounded-full border-2 border-gray-300" />
+                        <div
+                          className={`w-4 h-4 rounded-full border-2 ${
+                            theme === "dark"
+                              ? "border-gray-600"
+                              : "border-gray-300"
+                          }`}
+                        />
                       )}
                       <span className="font-medium text-sm">{goal.title}</span>
                     </div>
@@ -309,7 +310,6 @@ export default function AchievementsPage() {
         </div>
       </div>
 
-      {/* Footer */}
       <footer className="border-t bg-background mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
@@ -318,16 +318,6 @@ export default function AchievementsPage() {
               <span>{t("company")}</span>
               <span>{t("support")}</span>
             </div>
-            {/* <div className="flex items-center space-x-4">
-              <span className="text-sm text-muted-foreground">
-                {t("madeWith")}
-              </span>
-              <div className="flex items-center space-x-1">
-                <span className="text-sm font-medium text-blue-600">
-                  {t("voly")}
-                </span>
-              </div>
-            </div> */}
           </div>
         </div>
       </footer>

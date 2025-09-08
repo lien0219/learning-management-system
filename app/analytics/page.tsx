@@ -1,10 +1,15 @@
+"use client";
+
 import { OverviewMetrics } from "@/components/analytics/overview-metrics";
 import { PerformanceCharts } from "@/components/analytics/performance-charts";
 import { ActionableInsights } from "@/components/analytics/actionable-insights";
+// import { useTheme } from "../../hooks/use-theme";
 
 export default function AnalyticsPage() {
+  // const { theme } = useTheme();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">
@@ -12,13 +17,11 @@ export default function AnalyticsPage() {
           </h1>
         </div>
 
-        {/* Overview Metrics */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Overview Metrics</h2>
           <OverviewMetrics />
         </div>
 
-        {/* Performance Visualizations */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-4">
             Performance Visualizations
@@ -26,14 +29,12 @@ export default function AnalyticsPage() {
           <PerformanceCharts />
         </div>
 
-        {/* Actionable Insights */}
         <div className="mb-8">
           <h2 className="text-xl font-semibold mb-4">Actionable Insights</h2>
           <ActionableInsights />
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t bg-background mt-12">
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center">

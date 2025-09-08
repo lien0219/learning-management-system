@@ -4,7 +4,7 @@
 
 // 定义API基础URL
 // const API_BASE_URL = "http://127.0.0.1:8080/api";
-const API_BASE_URL = "https://34085664.r39.cpolar.top/api";
+const API_BASE_URL = "https://74efdcd0.r6.cpolar.cn/api";
 
 // 请求配置接口
 export interface RequestOptions extends Omit<RequestInit, "body" | "headers"> {

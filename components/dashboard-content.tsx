@@ -14,10 +14,12 @@ import { useLanguage } from "@/hooks/use-language";
 import { useAuth } from "@/hooks/use-auth";
 import { useEffect, useState } from "react";
 import { getDailyMotivation } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 export function DashboardContent() {
   const { t } = useLanguage();
   const { user, isLoading } = useAuth();
+  const router = useRouter();
   const [dailyQuote, setDailyQuote] = useState<string>("");
   const [quoteLoading, setQuoteLoading] = useState<boolean>(true);
 
@@ -39,6 +41,29 @@ export function DashboardContent() {
 
     fetchDailyMotivation();
   }, [t]);
+
+  const navigateToResource = (
+    categoryId: string,
+    resourceType: string,
+    resourceId: string
+  ) => {
+    const params = new URLSearchParams();
+
+    if (categoryId) {
+      params.append("category", categoryId);
+    }
+    if (resourceType) {
+      params.append("type", resourceType);
+    }
+    if (resourceId) {
+      params.append("id", resourceId);
+    }
+
+    const queryString = params.toString();
+    const url = queryString ? `/resources?${queryString}` : "/resources";
+
+    router.push(url);
+  };
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -140,6 +165,7 @@ export function DashboardContent() {
             </CardContent>
           </Card>
 
+          {/* 推荐 */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -160,6 +186,9 @@ export function DashboardContent() {
                   <Button
                     variant="link"
                     className="p-0 h-auto text-blue-600 dark:text-blue-400 text-sm"
+                    onClick={() =>
+                      navigateToResource("pointers-memory", "", "")
+                    }
                   >
                     {t("viewResource")}
                   </Button>
@@ -178,6 +207,7 @@ export function DashboardContent() {
                   <Button
                     variant="link"
                     className="p-0 h-auto text-purple-600 dark:text-purple-400 text-sm"
+                    onClick={() => navigateToResource("c-basics", "", "")}
                   >
                     {t("viewResource")}
                   </Button>
@@ -194,6 +224,7 @@ export function DashboardContent() {
                   <Button
                     variant="link"
                     className="p-0 h-auto text-orange-600 dark:text-orange-400 text-sm"
+                    onClick={() => navigateToResource("algorithms", "", "")}
                   >
                     {t("viewResource")}
                   </Button>
@@ -210,6 +241,7 @@ export function DashboardContent() {
                   <Button
                     variant="link"
                     className="p-0 h-auto text-green-600 dark:text-green-400 text-sm"
+                    onClick={() => navigateToResource("file-io", "", "")}
                   >
                     {t("viewResource")}
                   </Button>

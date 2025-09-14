@@ -10,6 +10,7 @@ import {
   MoreHorizontal,
   Trash2,
   Key,
+  Plus,
 } from "lucide-react";
 
 import {
@@ -60,9 +61,22 @@ import {
   CardAction,
 } from "@/components/ui/card";
 
-import { deleteUser, getUsers, updateUser, UserInfo } from "@/lib/api";
+import {
+  createMotivation,
+  CreateMotivationRequest,
+  deleteMotivation,
+  deleteUser,
+  getMotivations,
+  getUsers,
+  switchMotivation,
+  updateMotivation,
+  UpdateMotivationRequest,
+  updateUser,
+  UserInfo,
+} from "@/lib/api";
 import { formatDateTimeSimple, isUserOnline } from "@/lib/dateTime";
 import { useToast } from "@/hooks/use-toast";
+import { Switch } from "@radix-ui/react-switch";
 
 interface User {
   id: string;
@@ -142,6 +156,18 @@ const AdminPage: React.FC = () => {
   );
   const [userToAction, setUserToAction] = useState<User | null>(null);
 
+  const [motivations, setMotivations] = useState<any[]>([]);
+  const [isLoadingMotivations, setIsLoadingMotivations] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpenDialog, setIsEditMotivationDialogOpenDialog] =
+    useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [newMotivationContent, setNewMotivationContent] = useState("");
+  const [editingMotivation, setEditingMotivation] = useState<any | null>(null);
+  const [deletingMotivationId, setDeletingMotivationId] = useState<
+    number | null
+  >(null);
+
   const convertApiUserToLocal = (apiUser: any): User => {
     const lastLogin =
       apiUser.LastLogin || apiUser.CreatedAt || apiUser.createdAt;
@@ -213,6 +239,7 @@ const AdminPage: React.FC = () => {
     }
 
     loadUsers();
+    loadMotivations();
   }, [isLoggedIn, isLoading, user, router]);
 
   useEffect(() => {
@@ -382,6 +409,215 @@ const AdminPage: React.FC = () => {
     }
 
     return items;
+  };
+
+  const loadMotivations = async () => {
+    if (!isLoggedIn || user?.role !== "admin") return;
+
+    setIsLoadingMotivations(true);
+    try {
+      const response = await getMotivations();
+      if (response.code === 200 && Array.isArray(response.data)) {
+        setMotivations(response.data);
+      } else {
+        console.error("获取激励语句失败:", response.message);
+      }
+    } catch (error) {
+      console.error("获取激励语句列表时发生错误:", error);
+    } finally {
+      setIsLoadingMotivations(false);
+    }
+  };
+  const handleCreateMotivation = async () => {
+    if (!newMotivationContent.trim()) {
+      toast({
+        title: "错误",
+        description: "激励短句内容不能为空",
+        duration: 2000,
+      });
+      return;
+    }
+    if (newMotivationContent.length < 20) {
+      toast({
+        title: "错误",
+        description: "激励短句内容至少需要20个字符",
+        duration: 2000,
+      });
+      return;
+    }
+
+    try {
+      const requestData: CreateMotivationRequest = {
+        content: newMotivationContent.trim(),
+      };
+      const response = await createMotivation(requestData);
+
+      if (response.code === 200 && response.data) {
+        await loadMotivations();
+        setNewMotivationContent("");
+        setIsCreateDialogOpen(false);
+
+        toast({
+          title: "成功",
+          description: response.message || "激励短句创建成功",
+          duration: 2000,
+        });
+      } else {
+        toast({
+          title: "错误",
+          description: response.message || "创建激励短句失败",
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("创建激励短句时发生错误:", error);
+      toast({
+        title: "网络错误",
+        description: "请检查网络连接后重试",
+        duration: 2000,
+      });
+    }
+  };
+
+  const handleUpdateMotivation = async () => {
+    if (!editingMotivation || !editingMotivation.content.trim()) {
+      toast({
+        title: "错误",
+        description: "激励短句内容不能为空",
+        duration: 2000,
+      });
+      return;
+    }
+    if (!editingMotivation || editingMotivation.content.length < 20) {
+      toast({
+        title: "错误",
+        description: "激励短句内容至少需要20个字符",
+        duration: 2000,
+      });
+      return;
+    }
+
+    try {
+      const requestData: any = {
+        content: editingMotivation.content,
+        is_enabled: editingMotivation.is_enabled,
+      };
+      const response = await updateMotivation(
+        editingMotivation.id,
+        requestData
+      );
+
+      if (response.code === 200 && response.data) {
+        await loadMotivations();
+        setEditingMotivation(null);
+        setIsEditMotivationDialogOpenDialog(false);
+
+        toast({
+          title: "成功",
+          description: response.message || "激励短句更新成功",
+          duration: 2000,
+        });
+      } else {
+        toast({
+          title: "错误",
+          description: response.message || "更新激励短句失败",
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("更新激励短句时发生错误:", error);
+      toast({
+        title: "网络错误",
+        description: "请检查网络连接后重试",
+        duration: 2000,
+      });
+    }
+  };
+  const handleDeleteMotivation = async () => {
+    if (!deletingMotivationId) return;
+
+    try {
+      const response = await deleteMotivation(deletingMotivationId);
+
+      if (response.code === 200) {
+        setMotivations(
+          motivations.filter((m) => m.id !== deletingMotivationId)
+        );
+        setDeletingMotivationId(null);
+        setIsDeleteDialogOpen(false);
+
+        toast({
+          title: "成功",
+          description: response.message || "激励短句删除成功",
+          duration: 2000,
+        });
+      } else {
+        toast({
+          title: "错误",
+          description: response.message || "删除激励短句失败",
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("删除激励短句时发生错误:", error);
+      toast({
+        title: "网络错误",
+        description: "请检查网络连接后重试",
+        duration: 2000,
+      });
+    }
+  };
+  const handleToggleMotivationStatus = async (
+    id: number,
+    currentStatus: boolean
+  ) => {
+    try {
+      const motivation = motivations.find((m) => m.id === id);
+
+      if (!motivation) {
+        console.error("未找到对应的激励短句");
+        return;
+      }
+      const requestData: any = {
+        content: motivation.content,
+        is_enabled: !currentStatus,
+      };
+      const response = await updateMotivation(id, requestData);
+
+      if (response.code === 200 && response.data) {
+        await loadMotivations();
+      }
+    } catch (error) {
+      console.error("切换激励短句状态时发生错误:", error);
+      loadMotivations();
+    }
+  };
+
+  const handleSwitchMotivation = async (id: number) => {
+    try {
+      const response = await switchMotivation(id);
+
+      if (response.code === 200) {
+        toast({
+          title: "成功",
+          description: response.message || "已成功切换到指定的激励短句",
+          duration: 2000,
+        });
+      } else {
+        toast({
+          title: "错误",
+          description: response.message || "切换激励短句失败",
+          duration: 2000,
+        });
+      }
+    } catch (error) {
+      console.error("切换激励短句时发生错误:", error);
+      toast({
+        title: "网络错误",
+        description: "请检查网络连接后重试",
+        duration: 2000,
+      });
+    }
   };
 
   if (isLoading || !isLoggedIn) {
@@ -648,6 +884,106 @@ const AdminPage: React.FC = () => {
         </CardFooter>
       </Card>
 
+      <Card className="mt-7">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-2xl font-bold flex items-center gap-2">
+            <span className="text-primary">💬</span>
+            激励语句管理
+          </CardTitle>
+          <CardAction>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              添加激励语句
+            </Button>
+          </CardAction>
+        </CardHeader>
+
+        <CardContent className="p-6">
+          {isLoadingMotivations ? (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">加载激励语句中...</p>
+            </div>
+          ) : motivations.length > 0 ? (
+            <div className="grid gap-4">
+              {motivations.map((motivation) => (
+                <div
+                  key={motivation.id}
+                  className="flex items-center justify-between p-4 border rounded-lg bg-background"
+                >
+                  <div className="flex-1">
+                    <p className="text-lg font-medium">{motivation.content}</p>
+                    <p className="text-sm text-muted-foreground">
+                      创建于 {formatDateTimeSimple(motivation.created_at)}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">状态:</span>
+                      <Badge
+                        className={`${
+                          motivation.is_enabled
+                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+                            : "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100"
+                        }`}
+                      >
+                        {motivation.is_enabled ? "启用" : "禁用"}
+                      </Badge>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() =>
+                        handleToggleMotivationStatus(
+                          motivation.id,
+                          motivation.is_enabled
+                        )
+                      }
+                    >
+                      {motivation.is_enabled ? "禁用" : "启用"}
+                    </Button>
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
+                      onClick={() => handleSwitchMotivation(motivation.id)}
+                    >
+                      立即切换
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        setEditingMotivation({ ...motivation });
+                        setIsEditMotivationDialogOpenDialog(true);
+                      }}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                      onClick={() => {
+                        setDeletingMotivationId(motivation.id);
+                        setIsDeleteDialogOpen(true);
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-muted-foreground">
+                暂无激励语句，请添加新的激励语句
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -780,6 +1116,152 @@ const AdminPage: React.FC = () => {
               onClick={handleConfirmAction}
             >
               {actionType === "delete" ? "删除" : "重置"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>添加新激励语句</DialogTitle>
+          </DialogHeader>
+
+          <div className="py-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">激励短句内容</label>
+              <Input
+                type="text"
+                value={newMotivationContent}
+                onChange={(e) => setNewMotivationContent(e.target.value)}
+                placeholder="请输入激励短句内容（最少20个字符）"
+                className={`w-full mt-2 ${
+                  newMotivationContent.length > 0 &&
+                  newMotivationContent.length < 20
+                    ? "border-red-300 focus:ring-red-500"
+                    : ""
+                }`}
+              />
+              {newMotivationContent.length > 0 &&
+                newMotivationContent.length < 20 && (
+                  <p className="text-xs text-red-500">内容至少需要20个字符</p>
+                )}
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              onClick={() => setIsCreateDialogOpen(false)}
+            >
+              取消
+            </Button>
+            <Button
+              disabled={newMotivationContent.length < 20}
+              onClick={handleCreateMotivation}
+            >
+              确认添加
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={isEditDialogOpenDialog}
+        onOpenChange={setIsEditMotivationDialogOpenDialog}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>编辑激励语句</DialogTitle>
+          </DialogHeader>
+
+          {editingMotivation && (
+            <div className="py-4">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">激励短句内容</label>
+                  <Input
+                    type="text"
+                    value={editingMotivation.content}
+                    onChange={(e) =>
+                      setEditingMotivation({
+                        ...editingMotivation,
+                        content: e.target.value,
+                      })
+                    }
+                    placeholder="请输入激励短句内容（最少20个字符）"
+                    className={`w-full mt-2 ${
+                      editingMotivation.content.length > 0 &&
+                      editingMotivation.content.length < 20
+                        ? "border-red-300 focus:ring-red-500"
+                        : ""
+                    }`}
+                  />
+                  {editingMotivation.content.length > 0 &&
+                    editingMotivation.content.length < 20 && (
+                      <p className="text-xs text-red-500">
+                        内容至少需要20个字符
+                      </p>
+                    )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-medium">状态:</span>
+                  <Switch
+                    checked={editingMotivation.is_enabled}
+                    onCheckedChange={(checked) =>
+                      setEditingMotivation({
+                        ...editingMotivation,
+                        is_enabled: checked,
+                      })
+                    }
+                  />
+                  <span className="text-sm text-muted-foreground">
+                    {editingMotivation.is_enabled ? "启用" : "禁用"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              onClick={() => setIsEditMotivationDialogOpenDialog(false)}
+            >
+              取消
+            </Button>
+            <Button
+              disabled={
+                editingMotivation && editingMotivation.content.length < 20
+              }
+              onClick={handleUpdateMotivation}
+            >
+              确认更新
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>确认删除激励语句</DialogTitle>
+          </DialogHeader>
+
+          <div className="py-4">
+            <p className="text-muted-foreground">
+              确定要删除这条激励语句吗？此操作不可撤销。
+            </p>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="ghost"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              取消
+            </Button>
+            <Button variant="destructive" onClick={handleDeleteMotivation}>
+              删除
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -12,10 +12,33 @@ import {
 } from "lucide-react";
 import { useLanguage } from "@/hooks/use-language";
 import { useAuth } from "@/hooks/use-auth";
+import { useEffect, useState } from "react";
+import { getDailyMotivation } from "@/lib/api";
 
 export function DashboardContent() {
   const { t } = useLanguage();
   const { user, isLoading } = useAuth();
+  const [dailyQuote, setDailyQuote] = useState<string>("");
+  const [quoteLoading, setQuoteLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchDailyMotivation = async () => {
+      try {
+        setQuoteLoading(true);
+        const response: any = await getDailyMotivation();
+        if (response.code === 200 && response.data) {
+          setDailyQuote(response.data.content);
+        }
+      } catch (error) {
+        console.error("获取每日激励失败:", error);
+        setDailyQuote(t("dailyQuote"));
+      } finally {
+        setQuoteLoading(false);
+      }
+    };
+
+    fetchDailyMotivation();
+  }, [t]);
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -265,7 +288,7 @@ export function DashboardContent() {
             <CardContent>
               <div className="bg-primary/5 dark:bg-primary/10 p-4 rounded-lg">
                 <p className="text-sm text-center italic text-foreground">
-                  "{t("dailyQuote")}"
+                  {quoteLoading ? "..." : `"${dailyQuote || t("dailyQuote")}"`}
                 </p>
               </div>
             </CardContent>

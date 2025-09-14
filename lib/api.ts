@@ -4,7 +4,7 @@
 
 // 定义API基础URL
 // const API_BASE_URL = "http://127.0.0.1:8080/api";
-const API_BASE_URL = "https://74efdcd0.r6.cpolar.cn/api";
+const API_BASE_URL = "https://2204362c.r39.cpolar.top/api";
 
 // 请求配置接口
 export interface RequestOptions extends Omit<RequestInit, "body" | "headers"> {
@@ -256,6 +256,113 @@ export const deleteUser = async (
   const token = getToken();
   return request<DeleteUserResponse>(`/admin/users/${userId}`, {
     method: "DELETE",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+};
+/**
+ * 获取每日激励信息API
+ */
+export const getDailyMotivation = async (): Promise<ApiResponse<string>> => {
+  const token = getToken();
+  return request<ApiResponse<string>>("/motivation", {
+    method: "GET",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+};
+
+// 激励短句接口
+interface Motivation {
+  id: number;
+  content: string;
+  is_enabled: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// 创建激励短句请求接口
+export interface CreateMotivationRequest {
+  content: string;
+}
+
+// 更新激励短句请求接口
+export interface UpdateMotivationRequest {
+  content?: string;
+  is_enabled?: boolean;
+}
+
+/**
+ * 获取所有激励短句API（管理员权限）
+ */
+export const getMotivations = async (): Promise<ApiResponse<Motivation[]>> => {
+  const token = getToken();
+  return request<ApiResponse<Motivation[]>>("/admin/motivations", {
+    method: "GET",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+};
+
+/**
+ * 创建新的激励短句API（管理员权限）
+ */
+export const createMotivation = async (
+  data: CreateMotivationRequest
+): Promise<ApiResponse<Motivation>> => {
+  const token = getToken();
+  return request<ApiResponse<Motivation>>("/admin/motivations", {
+    method: "POST",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+    body: data,
+  });
+};
+
+/**
+ * 更新激励短句API（管理员权限）
+ */
+export const updateMotivation = async (
+  id: number,
+  data: UpdateMotivationRequest
+): Promise<ApiResponse<Motivation>> => {
+  const token = getToken();
+  return request<ApiResponse<Motivation>>(`/admin/motivations/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+    body: data,
+  });
+};
+
+/**
+ * 删除激励短句API（管理员权限）
+ */
+export const deleteMotivation = async (
+  id: number
+): Promise<ApiResponse<string>> => {
+  const token = getToken();
+  return request<ApiResponse<string>>(`/admin/motivations/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+};
+/**
+ * 立即切换到指定的激励短句API（管理员权限）
+ */
+export const switchMotivation = async (
+  id: number
+): Promise<ApiResponse<string>> => {
+  const token = getToken();
+  return request<ApiResponse<string>>(`/admin/motivations/${id}/switch`, {
+    method: "POST",
     headers: {
       Authorization: token ? `Bearer ${token}` : "",
     },

@@ -268,6 +268,10 @@ export const translations = {
     dataStructuresPro: "Data Structures Pro",
     problemSolverElite: "Problem Solver Elite",
     syntaxSage: "Syntax Sage",
+
+    resourcesPageTitle: "Recommended C Programming Resources",
+    resourcesPageDescription:
+      "Explore a curated collection of videos, articles, and exercises to master C programming, from fundamental concepts to advanced topics and practical application.",
   },
   zh: {
     // Navigation
@@ -520,6 +524,9 @@ export const translations = {
     dataStructuresPro: "数据结构专家",
     problemSolverElite: "精英问题解决者",
     syntaxSage: "语法圣人",
+    resourcesPageTitle: "推荐的C语言编程资源",
+    resourcesPageDescription:
+      "探索精选的视频、文章和练习，从基础概念到高级主题和实际应用，掌握C语言编程。",
   },
 };
 

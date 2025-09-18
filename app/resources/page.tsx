@@ -819,13 +819,9 @@ export default function RecommendedResources() {
     <div className="min-h-screen bg-background">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground mb-2">
-          Recommended C Programming Resources
+          {t("resourcesPageTitle")}
         </h1>
-        <p className="text-muted-foreground">
-          Explore a curated collection of videos, articles, and exercises to
-          master C programming, from fundamental concepts to advanced topics and
-          practical application.
-        </p>
+        <p className="text-muted-foreground">{t("resourcesPageDescription")}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
